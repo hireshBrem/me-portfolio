@@ -16,7 +16,7 @@ export default function Home() {
 
   const sections = [
     { key: "title", text: "hey i'm hiresh", speed: 100 },
-    { key: "subtitle", text: "building AI apps. don't want to die screaming!", speed: 50 },
+    { key: "subtitle", text: "building AI apps", speed: 60 },
     { key: "storyTitle", text: "my story - not finished :)", speed: 80 },
     { key: "storyItems", texts: [
       "moved to England (age 5)",

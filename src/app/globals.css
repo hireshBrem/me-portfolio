@@ -44,3 +44,14 @@ a:hover, button:hover {
   }
 }
 
+/* Custom text selection highlighting */
+::selection {
+  background-color: #8B5CF6;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: #8B5CF6;
+  color: white;
+}
+
