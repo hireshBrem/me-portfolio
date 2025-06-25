@@ -1,37 +1,142 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [currentSection, setCurrentSection] = useState(0);
+  const [displayedTexts, setDisplayedTexts] = useState({
+    title: "",
+    subtitle: "",
+    storyTitle: "",
+    storyItems: [],
+    contactTitle: ""
+  });
+
+  const sections = [
+    { key: "title", text: "hey i'm hiresh", speed: 100 },
+    { key: "subtitle", text: "building AI apps. don't want to die screaming!", speed: 50 },
+    { key: "storyTitle", text: "my story - not finished :)", speed: 80 },
+    { key: "storyItems", texts: [
+      "moved to England (age 5)",
+      "started coding during Covid lockdown (age 13)",
+      "freelancing on Fiverr",
+      "started learning AI (age 18)",
+      "applied to study mechanical engineering",
+      "built an AI edtech tool (1000 users)",
+      "built an AI tool to generate ai ugc ads (500 users)",
+      "currently working on something bigger, stay tuned!"
+    ], speed: 30 },
+    { key: "contactTitle", text: "contact", speed: 100 }
+  ];
+
+  useEffect(() => {
+    if (currentSection >= sections.length) return;
+
+    const section:any = sections[currentSection];
+    
+    if (section.key === "storyItems") {
+      let itemIndex = 0;
+      let charIndex = 0;
+      const currentItems:any[] = [];
+      
+      const typeStoryItems = () => {
+        if (itemIndex >= section.texts.length) {
+          setCurrentSection(prev => prev + 1);
+          return;
+        }
+        
+        const currentText = section.texts[itemIndex];
+        const interval = setInterval(() => {
+          if (charIndex <= currentText.length) {
+            currentItems[itemIndex] = currentText.slice(0, charIndex);
+            setDisplayedTexts((prev:any) => ({
+              ...prev,
+              storyItems: [...currentItems]
+            }));
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            itemIndex++;
+            charIndex = 0;
+            setTimeout(typeStoryItems, 200);
+          }
+        }, section.speed);
+      };
+      
+      typeStoryItems();
+    } else {
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex <= section.text.length) {
+          setDisplayedTexts(prev => ({
+            ...prev,
+            [section.key]: section.text.slice(0, currentIndex)
+          }));
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => setCurrentSection(prev => prev + 1), 500);
+        }
+      }, section.speed);
+    }
+  }, [currentSection]);
+
   return (
     <div className="min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-4xl mx-auto">
       <main className="flex flex-col gap-8">
         {/* Hero Section */}
         <section className="text-center sm:text-left">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">hey i'm hiresh</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            building AI apps. don't want to die screaming!
-          </p>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+            {displayedTexts.title}
+            {currentSection === 0 && <span className="animate-pulse">|</span>}
+          </h1>
+          {displayedTexts.subtitle && (
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {displayedTexts.subtitle}
+              {currentSection === 1 && <span className="animate-pulse">|</span>}
+            </p>
+          )}
         </section>
 
         {/* Story Section */}
-        <section className="mt-8">
-          <h2 className="text-2xl font-bold mb-6">my story - not finished :)</h2>
-          <ul className="list-disc pl-5 space-y-3">
-            <li>moved to England (age 5)</li>
-            <li>started coding during Covid lockdown (age 13)</li>
-            <li>freelancing on Fiverr</li>
-            <li>started learning AI (age 18)</li>
-            <li>applied to study mechanical engineering <span className="font-semibold">- rejected by 4/5 colleges</span></li>
-            <li>built an AI edtech tool (1000 users)</li>
-            <li>built an AI tool to generate ai ugc ads ({'>'}500 users)</li>
-            <li>currently working on something bigger, stay tuned!</li>
-          </ul>
-        </section>
+        {displayedTexts.storyTitle && (
+          <section className="mt-8">
+            <h2 className="text-2xl font-bold mb-6">
+              {displayedTexts.storyTitle}
+              {currentSection === 2 && <span className="animate-pulse">|</span>}
+            </h2>
+            {displayedTexts.storyItems.length > 0 && (
+              <ul className="list-disc pl-5 space-y-3">
+                {displayedTexts.storyItems.map((item:any, index:any) => (
+                  <li key={index}>
+                    {typeof item === 'string' && item.includes("rejected by 4/5 colleges") ? (
+                      <>
+                        applied to study mechanical engineering{" "}
+                        <span className="font-semibold">- rejected by 4/5 colleges</span>
+                      </>
+                    ) : (
+                      item
+                    )}
+                    {currentSection === 3 && index === displayedTexts.storyItems.length - 1 && (
+                      <span className="animate-pulse">|</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
 
         {/* Contact Section */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">contact</h2>
-          <div className="space-y-3">
+        {displayedTexts.contactTitle && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">
+              {displayedTexts.contactTitle}
+              {currentSection === 4 && <span className="animate-pulse">|</span>}
+            </h2>
+            <div className="space-y-3">
             <Link 
               href="mailto:hbremanand2@gmail.com"
               className="flex items-center gap-2 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -64,8 +169,9 @@ export default function Home() {
               </svg>
               hireshBrem
             </Link>
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
