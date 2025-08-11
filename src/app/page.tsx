@@ -5,86 +5,95 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [currentSection, setCurrentSection] = useState(0);
+  const [currentSection, setCurrentSection] = useState(-1);
   const [displayedTexts, setDisplayedTexts] = useState({
-    title: "",
-    subtitle: "",
-    storyTitle: "",
-    storyItems: [],
-    contactTitle: ""
-  });
-
-  const sections = [
-    { key: "title", text: "hey i'm hiresh", speed: 100 },
-    { key: "subtitle", text: "building AI apps", speed: 60 },
-    { key: "storyTitle", text: "my story - not finished :)", speed: 80 },
-    { key: "storyItems", texts: [
+    title: "hiresh bremanand",
+    // subtitle: "building tech",
+    // storyTitle: "my story - not finished :)",
+    storyItems: [
       "moved to England (age 5)",
-      "started coding during Covid lockdown (age 13)",
-      "freelancing on Fiverr",
+      "started coding (age 13)",
       "started learning AI (age 18)",
       "applied to study mechanical engineering",
       "built an AI edtech tool (1000 users)",
       "built an AI tool to generate ai ugc ads (500 users)",
+      "built prompt engineer mcp server",
       "currently working on something bigger, stay tuned!"
-    ], speed: 30 },
-    { key: "contactTitle", text: "contact", speed: 100 }
-  ];
+    ],
+    contactTitle: "contact"
+  });
 
-  useEffect(() => {
-    if (currentSection >= sections.length) return;
+  // const sections = [
+  //   { key: "title", text: "hey i'm hiresh", speed: 100 },
+  //   { key: "subtitle", text: "building AI apps", speed: 60 },
+  //   { key: "storyTitle", text: "my story - not finished :)", speed: 80 },
+  //   { key: "storyItems", texts: [
+  //     "moved to England (age 5)",
+  //     "started coding during Covid lockdown (age 13)",
+  //     "freelancing on Fiverr",
+  //     "started learning AI (age 18)",
+  //     "applied to study mechanical engineering",
+  //     "built an AI edtech tool (1000 users)",
+  //     "built an AI tool to generate ai ugc ads (500 users)",
+  //     "currently working on something bigger, stay tuned!"
+  //   ], speed: 30 },
+  //   { key: "contactTitle", text: "contact", speed: 100 }
+  // ];
 
-    const section:any = sections[currentSection];
-    
-    if (section.key === "storyItems") {
-      let itemIndex = 0;
-      let charIndex = 0;
-      const currentItems:any[] = [];
-      
-      const typeStoryItems = () => {
-        if (itemIndex >= section.texts.length) {
-          setCurrentSection(prev => prev + 1);
-          return;
-        }
-        
-        const currentText = section.texts[itemIndex];
-        const interval = setInterval(() => {
-          if (charIndex <= currentText.length) {
-            currentItems[itemIndex] = currentText.slice(0, charIndex);
-            setDisplayedTexts((prev:any) => ({
-              ...prev,
-              storyItems: [...currentItems]
-            }));
-            charIndex++;
-          } else {
-            clearInterval(interval);
-            itemIndex++;
-            charIndex = 0;
-            setTimeout(typeStoryItems, 200);
-          }
-        }, section.speed);
-      };
-      
-      typeStoryItems();
-    } else {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex <= section.text.length) {
-          setDisplayedTexts(prev => ({
-            ...prev,
-            [section.key]: section.text.slice(0, currentIndex)
-          }));
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-          setTimeout(() => setCurrentSection(prev => prev + 1), 500);
-        }
-      }, section.speed);
-    }
-  }, [currentSection]);
+  // useEffect(() => {
+  //   if (currentSection >= sections.length) return;
+  //
+  //   const section:any = sections[currentSection];
+  //   
+  //   if (section.key === "storyItems") {
+  //     let itemIndex = 0;
+  //     let charIndex = 0;
+  //     const currentItems:any[] = [];
+  //     
+  //     const typeStoryItems = () => {
+  //       if (itemIndex >= section.texts.length) {
+  //         setCurrentSection(prev => prev + 1);
+  //         return;
+  //       }
+  //       
+  //       const currentText = section.texts[itemIndex];
+  //       const interval = setInterval(() => {
+  //         if (charIndex <= currentText.length) {
+  //           currentItems[itemIndex] = currentText.slice(0, charIndex);
+  //           setDisplayedTexts((prev:any) => ({
+  //             ...prev,
+  //             storyItems: [...currentItems]
+  //           }));
+  //           charIndex++;
+  //         } else {
+  //           clearInterval(interval);
+  //           itemIndex++;
+  //           charIndex = 0;
+  //           setTimeout(typeStoryItems, 200);
+  //         }
+  //       }, section.speed);
+  //     };
+  //     
+  //     typeStoryItems();
+  //   } else {
+  //     let currentIndex = 0;
+  //     const interval = setInterval(() => {
+  //       if (currentIndex <= section.text.length) {
+  //         setDisplayedTexts(prev => ({
+  //           ...prev,
+  //           [section.key]: section.text.slice(0, currentIndex)
+  //         }));
+  //         currentIndex++;
+  //       } else {
+  //         clearInterval(interval);
+  //         setTimeout(() => setCurrentSection(prev => prev + 1), 500);
+  //       }
+  //     }, section.speed);
+  //   }
+  // }, [currentSection]);
 
   return (
-    <div className="min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-4xl mx-auto">
+    <div className="min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto">
       <main className="flex flex-col gap-8">
         {/* Hero Section */}
         <section className="text-center sm:text-left">
@@ -92,19 +101,13 @@ export default function Home() {
             {displayedTexts.title}
             {currentSection === 0 && <span className="animate-pulse">|</span>}
           </h1>
-          {displayedTexts.subtitle && (
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              {displayedTexts.subtitle}
-              {currentSection === 1 && <span className="animate-pulse">|</span>}
-            </p>
-          )}
         </section>
 
         {/* Story Section */}
-        {displayedTexts.storyTitle && (
-          <section className="mt-8">
+        {/* {displayedTexts.storyTitle && ( */}
+          <section className="">
             <h2 className="text-2xl font-bold mb-6">
-              {displayedTexts.storyTitle}
+              {/* {displayedTexts.storyTitle} */}
               {currentSection === 2 && <span className="animate-pulse">|</span>}
             </h2>
             {displayedTexts.storyItems.length > 0 && (
@@ -127,7 +130,7 @@ export default function Home() {
               </ul>
             )}
           </section>
-        )}
+        {/* )} */}
 
         {/* Contact Section */}
         {displayedTexts.contactTitle && (
@@ -156,7 +159,7 @@ export default function Home() {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
               </svg>
-              @hiresh_b
+              @hiresh_b (dm's open)
             </Link>
             <Link 
               href="https://github.com/hireshBrem"
