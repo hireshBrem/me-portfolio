@@ -20,7 +20,7 @@ export default function Home() {
         { text: "built 'cursor' for cad for engineers", link: "https://github.com/hireshBrem/cad-ai"},
         { text: "ai video editor powered by voice", link: "https://github.com/hireshBrem/vox-ai" },
         { text: "built prompt engineer mcp server (20% less cursor usage)", link: "https://github.com/hireshBrem/prompt-engineer-mcp-server" },
-        { text: "see all projects on github", link: "https://github.com/hireshBrem" },
+        { text: "(see all projects on github)", link: "https://github.com/hireshBrem" },
     ],
     contactTitle: "contact"
   });
@@ -68,7 +68,7 @@ export default function Home() {
             </h2>
             {displayedTexts.storyItems.length > 0 && (
               <ul className="list-disc pl-5 space-y-3">
-                {displayedTexts.storyItems.map((item:any, index:any) => (
+                {displayedTexts.storyItems.map((item: { text: string; link: string | null }, index: number) => (
                   <li key={index}>
                     {item.text.includes("rejected by 4/5 colleges") ? (
                       <>
@@ -102,7 +102,7 @@ export default function Home() {
             <div className="space-y-6">
               {displayedTexts.projects.length > 0 && (
                 <ul className="list-disc pl-5 space-y-3">
-                  {displayedTexts.projects.map((item:any, index:any) => (
+                  {displayedTexts.projects.map((item: { text: string; link: string }, index: number) => (
                     <li key={index}>
                       {item.link ? (
                         <Link
@@ -153,7 +153,7 @@ export default function Home() {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
               </svg>
-              @hiresh_b (dm's open)
+              @hiresh_b (dm&apos;s open)
             </Link>
             <Link 
               href="https://github.com/hireshBrem"
