@@ -20,6 +20,7 @@ export default function Home() {
         { text: "built 'cursor' for cad for engineers", link: "https://github.com/hireshBrem/cad-ai"},
         { text: "ai video editor powered by voice", link: "https://github.com/hireshBrem/vox-ai" },
         { text: "built prompt engineer mcp server (20% less cursor usage)", link: "https://github.com/hireshBrem/prompt-engineer-mcp-server" },
+        { text: "see all projects on github", link: "https://github.com/hireshBrem" },
     ],
     contactTitle: "contact"
   });
