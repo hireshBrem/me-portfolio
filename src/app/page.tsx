@@ -25,7 +25,7 @@ export default function Home() {
     contactTitle: "contact"
   });
 
-  const tabs = ["about", "projects"];
+  const tabs = ["about", "projects", "writings"];
 
   return (
     <div className="min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto">
@@ -63,9 +63,6 @@ export default function Home() {
         {/* Tab Content */}
         {activeTab === "about" && (
           <section className="">
-            <h2 className="text-2xl font-bold mb-6">
-              {currentSection === 2 && <span className="animate-pulse">|</span>}
-            </h2>
             {displayedTexts.storyItems.length > 0 && (
               <ul className="list-disc pl-5 space-y-3">
                 {displayedTexts.storyItems.map((item: { text: string; link: string | null }, index: number) => (
@@ -99,34 +96,44 @@ export default function Home() {
 
         {activeTab === "projects" && (
           <section className="">
-            <div className="space-y-6">
-              {displayedTexts.projects.length > 0 && (
-                <ul className="list-disc pl-5 space-y-3">
-                  {displayedTexts.projects.map((item: { text: string; link: string }, index: number) => (
-                    <li key={index}>
-                      {item.link ? (
-                        <Link
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                        >
-                          {item.text}
-                        </Link>
-                      ) : (
-                        item.text
-                      )}
-                      {currentSection === 3 && index === displayedTexts.projects.length - 1 && (
-                        <span className="animate-pulse">|</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            {displayedTexts.projects.length > 0 && (
+              <ul className="list-disc pl-5 space-y-3">
+                {displayedTexts.projects.map((item: { text: string; link: string }, index: number) => (
+                  <li key={index}>
+                    {item.link ? (
+                      <Link
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                      >
+                        {item.text}
+                      </Link>
+                    ) : (
+                      item.text
+                    )}
+                    {currentSection === 3 && index === displayedTexts.projects.length - 1 && (
+                      <span className="animate-pulse">|</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         )}
-        
+
+        {activeTab === "writings" && (
+            <section className="">
+                {/* 10 random funny AI-related default text as raw text */}
+
+                nothing here yet...
+
+
+
+                
+            </section>
+        )}
+
         {displayedTexts.contactTitle && (
           <section className="mt-6">
             <h2 className="text-2xl font-bold mb-6">
